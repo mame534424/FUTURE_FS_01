@@ -1,13 +1,13 @@
 import React from 'react'
-import ThemeToggle from '../components/ThemeToggle'
-import { StarBackGround } from '../components/StarBackGround'
-import Navbar from '../components/Navbar'
-import HeroSection from '../components/HeroSection'
-import AboutSection from '../components/AboutSection'
-import SkillsSection from '../components/SkillsSection'
-import ProjectSection from '../components/ProjectSection'
-import ContactSection from '../components/ContactSection'
-import Footer from '../components/Footer'
+import ThemeToggle from '../ThemeToggle'
+import { StarBackGround } from '../StarBackGround'
+import Navbar from '../Navbar'
+import HeroSection from '../HeroSection'
+import AboutSection from '../AboutSection'
+import SkillsSection from '../SkillsSection'
+import ProjectSection from '../ProjectSection'
+import ContactSection from '../ContactSection'
+import Footer from '../Footer'
 
 const Home = () => {
   return (
