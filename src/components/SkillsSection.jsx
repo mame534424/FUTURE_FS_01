@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { cn } from '../lib/utils';
+
 const skills = [
     // Languages
     { name: "Java", level: 85, category: "languages" },
@@ -66,61 +67,95 @@ const categories = [
     "testing",
 ];
 
-const SkillsSection = () => {
-    const [activeCategory,setActiveCategory]=React.useState("all");
+const SkillCard = ({ skill, index }) => {
+    const cardRef = useRef(null);
+    const progressRef = useRef(null);
 
-    const filteredSkills=skills.filter((skill)=>
-    activeCategory==="all" || skill.category===activeCategory
-    );
-return(
-    <section id='Skills'
-    className='py-24 px-4 relative bg-secondary/30'
-    >
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && progressRef.current) {
+                    progressRef.current.style.width = skill.level + "%";
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (cardRef.current) {
+            observer.observe(cardRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, [skill.level]);
+
+    return (
         <div
-        className='container mx-auto max-w-5xl'
+            ref={cardRef}
+            className='bg-card p-6 rounded-lg shadow-sm border border-border card-hover hover:border-primary/50 transition-all'
+            style={{
+                animation: `fade-in-up 0.6s ease-out forwards`,
+                animationDelay: `${index * 0.05}s`,
+                opacity: 0
+            }}
         >
-            <h2
-            className='text-3xl md:text-4xl font-bold mb-12 text-center'
-            >My {"  "}
-                <span
-                className='text-primary'
-                >Skills</span>
-            </h2>
-            <div
-            className='flex flex-wrap justify-center gap-4 mb-12'
-            >
-                {categories.map((category,key)=>(
-                    <button
-                    key={key}
-                    onClick={() => setActiveCategory(category)}
-                    className={cn('px-5 py-4 rounded-full transition-colors duration-300 capitalize',
-                     activeCategory===category? 'bg-primary text-primary-foreground':'bg-secondary/70 text-foreground hover:bg-secondary ' )} >  
-                    
-                        <span>{category}</span>
-                    </button>))}
+            <div className='text-left mb-3 flex justify-between items-center'>
+                <h3 className='font-bold text-lg'>{skill.name}</h3>
+                <span className='text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full'>{skill.level}%</span>
             </div>
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 '>
-                {filteredSkills.map((skill,key)=>(
-                    <div
-                    key={key}
-                    className='bg-card p-6 rounded-lg shadow-xs card-hover'>
-                        <div className='text-left mb-4 '>
-                            <h3
-                            className='font-semibold text-lg'
-                            >{skill.name}</h3>
-                        </div>
-                        <div className='width-full bg-secondary/50 h-2 rounded-full overflow-hidden'>
-                            <div className='bg-primary h-2 rounded-full origin-left animate-[grow_1.5s_ease-out'
-                            style={{width:skill.level+"%"}}/>
-                        </div>
-                        <div className='text-right mt-1'>
-                            <span className='text-sm text-muted-foreground '>{skill.level}</span>
-                        </div>
-            </div>))}
+            <div className='w-full bg-secondary/50 h-3 rounded-full overflow-hidden'>
+                <div
+                    ref={progressRef}
+                    className='bg-gradient-to-r from-primary to-primary/70 h-3 rounded-full origin-left transition-all duration-1000 ease-out'
+                    style={{ width: '0%' }}
+                />
+            </div>
         </div>
-    </div>
-    </section>
-  
-)};
+    );
+};
+
+const SkillsSection = () => {
+    const [activeCategory, setActiveCategory] = React.useState("all");
+
+    const filteredSkills = skills.filter((skill) =>
+        activeCategory === "all" || skill.category === activeCategory
+    );
+
+    return (
+        <section id='skills'
+            className='py-32 px-4 relative bg-secondary/20'
+        >
+            <div
+                className='container mx-auto max-w-6xl'
+            >
+                <h2
+                    className='text-5xl md:text-6xl font-bold mb-16 text-center'
+                >My {" "}
+                    <span
+                        className='text-primary'
+                    >Skills</span>
+                </h2>
+                <div
+                    className='flex flex-wrap justify-center gap-3 mb-16'
+                >
+                    {categories.map((category, key) => (
+                        <button
+                            key={key}
+                            onClick={() => setActiveCategory(category)}
+                            className={cn('px-6 py-3 rounded-full transition-all duration-300 capitalize font-medium text-sm sm:text-base',
+                                activeCategory === category ? 'bg-primary text-primary-foreground shadow-glow scale-105' : 'bg-secondary/70 text-foreground hover:bg-secondary hover:scale-105')} >
+
+                            <span>{category}</span>
+                        </button>))}
+                </div>
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 '>
+                    {filteredSkills.map((skill, key) => (
+                        <SkillCard key={key} skill={skill} index={key} />
+                    ))}
+                </div>
+            </div>
+        </section>
+
+    )
+};
 
 export default SkillsSection
