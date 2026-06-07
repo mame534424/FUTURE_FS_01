@@ -72,8 +72,110 @@
             opacity: 0;
           }
         }
-      
 
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slide-in-left {
+          from {
+            opacity: 0;
+            transform: translateX(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slide-in-right {
+          from {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes float-slow {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+        }
+
+        @keyframes scale-up {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes horizontal-float {
+          0%, 100% {
+            transform: translateX(0);
+          }
+          50% {
+            transform: translateX(10px);
+          }
+        }
+
+        @keyframes glow-pulse {
+          0%, 100% {
+            text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+          }
+          50% {
+            text-shadow: 0 0 20px rgba(167, 139, 250, 0.8);
+          }
+        }
+
+        @keyframes slide-in-bottom {
+          from {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes project-slide-left {
+          from {
+            opacity: 0;
+            transform: translateX(60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes project-slide-right {
+          from {
+            opacity: 0;
+            transform: translateX(-60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
 
 }
 @layer base {
@@ -165,6 +267,22 @@ text-shadow:0 0 10px rgba(167, 139, 250, 0.5);
 @utility meteor {
   @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
   box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+}
+
+@utility slide-in-bottom {
+  @apply animate-[slide-in-bottom_0.6s_ease-out_forwards];
+}
+
+@utility project-card-hover {
+  @apply transition-all duration-300 hover:scale-105 hover:-translate-y-3 hover:shadow-2xl;
+}
+
+@utility fade-in-up {
+  @apply animate-[fade-in-up_0.6s_ease-out_forwards];
+}
+
+@utility glow-text {
+  @apply animate-[glow-pulse_3s_ease-in-out_infinite];
 }
 
 #root {
