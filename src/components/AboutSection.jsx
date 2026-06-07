@@ -41,12 +41,12 @@ My goal is to create useful and meaningful digital products.
                             Get In Touch
                         </a>
 
-                         <a  href="/Mohammed_Abrar_Mudesir_CV.pdf"
-  download="Mohammed_Abrar_CV.pdf" className='px-4 py-2 border border-primary text-primary rounded-full hover:bg-primary/10 transition-colors duration-300 text-center'
-  aria-label="Download Mohammed Abrar CV"
-  >
-                            Download CV
-                        </a>
+                        <a href="/Mohammed_Abrar_CV_1.pdf"
+      download="Mohammed_Abrar_CV_1.pdf" className='px-4 py-2 border border-primary text-primary rounded-full hover:bg-primary/10 transition-colors duration-300 text-center'
+      aria-label="Download Mohammed Abrar CV"
+      >
+                                Download CV
+                            </a>
                     </div>
                 </div>
                 <div
