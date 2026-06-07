@@ -5,6 +5,7 @@ import Navbar from '../Navbar'
 import HeroSection from '../HeroSection'
 import AboutSection from '../AboutSection'
 import SkillsSection from '../SkillsSection'
+import ExperienceSection from '../ExperienceSection'
 import ProjectSection from '../ProjectSection'
 import ContactSection from '../ContactSection'
 import Footer from '../Footer'
@@ -21,6 +22,7 @@ const Home = () => {
         <main>
           <HeroSection/>
           <AboutSection/>
+          <ExperienceSection/>
           <SkillsSection/>
           <ProjectSection/>
           <ContactSection/>

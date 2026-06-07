@@ -4,35 +4,35 @@ import React from 'react';
 const projects = [
   {
     id: 1,
-    title: "Manage Landing Page",
+    title: "E-Fuel — Fuel Availability & Queue Management",
     description:
-      "A responsive landing page for a project management tool, built with React and Tailwind CSS.",
-    image: "/projects/Manage_landing_page.png",
-    projectUrl: "https://dashing-douhua-2cfba9.netlify.app/#",
-    githubUrl: "https://github.com/mame534424/manage-landing-page",
-    Tags: ["React", "Tailwind CSS", "Express.js"],
+      "Full-stack platform addressing fuel shortages with real-time availability, reservation, and admin dashboards. Mobile app for booking and live notifications.",
+    image: "/projects/efuel.png",
+    projectUrl: "#",
+    githubUrl: "https://github.com/mame534424",
+    Tags: ["Express.js", "Next.js", "React Native", "PostgreSQL"],
   },
 
   {
     id: 2,
-    title: "Web Hub",
+    title: "Buna ChatApp — Real-Time Messaging Platform",
     description:
-      "A modern multi-section website hub showcasing reusable UI components and clean layouts made with React and Tailwind CSS.",
-    image: "/projects/web_hub_page.png",
-    projectUrl: "https://mame534424.github.io/web_hub/",
-    githubUrl: "https://github.com/mame534424/web_hub",
-    Tags: ["HTML", "Tailwind CSS"],
+      "A modern real-time messaging platform with one-to-one and group chats, multimedia sharing, and an AI-powered assistant.",
+    image: "/projects/buna_chat.png",
+    projectUrl: "#",
+    githubUrl: "https://github.com/mame534424",
+    Tags: ["Spring Boot", "MySQL", "WebSockets", "Gemini LLM"],
   },
 
   {
     id: 3,
-    title: "Assembly Number Guessing Game",
+    title: "Smart Transformer Health Monitoring System",
     description:
-      "A simple word-guessing game built with React and JavaScript, improving logic and problem-solving skills.",
-    image: "/projects/assembly_game.png",
-    projectUrl: "https://assembly-endgame-five-neon.vercel.app/",
-    githubUrl: "https://github.com/mame534424/assembly-endgame",
-    Tags: ["JavaScript", "React"],
+      "An AI-powered system for transformer health prediction with RAG-powered engineering assistant and analytics dashboard.",
+    image: "/projects/transformer_monitor.png",
+    projectUrl: "#",
+    githubUrl: "https://github.com/mame534424",
+    Tags: ["Next.js", "FastAPI", "Random Forest", "LangChain"],
   },
 ];
 
