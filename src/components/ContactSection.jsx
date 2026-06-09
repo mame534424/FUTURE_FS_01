@@ -40,7 +40,8 @@ const ContactSection = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3001/contact", {
+      console.log(import.meta.env.VITE_BACKEND_URL)
+      const res = await fetch(`${import.meta.env.BACKEND_URL}/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -56,6 +57,7 @@ const ContactSection = () => {
       }
     } catch (err) {
       console.error(err);
+      console.log(err)
       toast.error("❌ Network error. Please try again.");
     } finally {
       setLoading(false);
