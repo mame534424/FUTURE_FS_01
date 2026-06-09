@@ -41,7 +41,7 @@ const ContactSection = () => {
 
     try {
       console.log(import.meta.env.VITE_BACKEND_URL)
-      const res = await fetch(`${import.meta.env.BACKEND_URL}/contact`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
