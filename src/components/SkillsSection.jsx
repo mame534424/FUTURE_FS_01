@@ -1,161 +1,208 @@
-import React, { useEffect, useRef } from 'react'
-import { cn } from '../lib/utils';
+import React, { useState } from "react";
+import { cn } from "../lib/utils";
 
-const skills = [
-    // Languages
-    { name: "Java", level: 85, category: "languages" },
-    { name: "TypeScript", level: 85, category: "languages" },
-    { name: "JavaScript", level: 90, category: "languages" },
-    { name: "Python", level: 80, category: "languages" },
-    { name: "SQL", level: 80, category: "languages" },
+const skillGroups = {
+  languages: [
+    "Java",
+    "TypeScript",
+    "JavaScript",
+    "Python",
+    "SQL",
+  ],
 
-    // Frontend
-    { name: "React", level: 90, category: "frontend" },
-    { name: "Next.js", level: 85, category: "frontend" },
-    { name: "React Native", level: 80, category: "frontend" },
-    { name: "Tailwind CSS", level: 85, category: "frontend" },
-    { name: "HTML/CSS", level: 95, category: "frontend" },
+  frontend: [
+    "React",
+    "Next.js",
+    "React Native",
+    "Tailwind CSS",
+    "HTML/CSS",
+  ],
 
-    // Backend
-    { name: "Spring Boot", level: 80, category: "backend" },
-    { name: "Node.js", level: 85, category: "backend" },
-    { name: "Express.js", level: 85, category: "backend" },
-    { name: "FastAPI", level: 75, category: "backend" },
-    { name: "REST APIs", level: 85, category: "backend" },
-    { name: "WebSockets", level: 80, category: "backend" },
+  backend: [
+    "Spring Boot",
+    "Node.js",
+    "Express.js",
+    "FastAPI",
+    "REST APIs",
+    "WebSockets",
+  ],
 
-    // Databases
-    { name: "PostgreSQL", level: 80, category: "databases" },
-    { name: "MySQL", level: 75, category: "databases" },
-    { name: "MongoDB", level: 70, category: "databases" },
+  databases: [
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+  ],
 
-    // AI & ML
-    { name: "Random Forest", level: 70, category: "ai" },
-    { name: "Scikit-learn", level: 70, category: "ai" },
-    { name: "LangChain", level: 65, category: "ai" },
-    { name: "RAG Architecture", level: 65, category: "ai" },
-    { name: "Gemini LLM", level: 60, category: "ai" },
+  ai: [
+    "Random Forest",
+    "Scikit-learn",
+    "LangChain",
+    "RAG Architecture",
+    "Gemini LLM",
+  ],
 
-    // Auth & Security
-    { name: "JWT Authentication", level: 80, category: "auth" },
-    { name: "RBAC", level: 75, category: "auth" },
-    { name: "OAuth2", level: 70, category: "auth" },
+  auth: [
+    "JWT Authentication",
+    "RBAC",
+    "OAuth2",
+  ],
 
-    // DevOps & Tools
-    { name: "Docker", level: 75, category: "tools" },
-    { name: "Git/GitHub", level: 90, category: "tools" },
-    { name: "Postman", level: 85, category: "tools" },
-    { name: "AWS S3", level: 75, category: "tools" },
-    { name: "Prometheus", level: 60, category: "tools" },
-    { name: "Grafana", level: 60, category: "tools" },
+  tools: [
+    "Docker",
+    "Git/GitHub",
+    "Postman",
+    "AWS S3",
+    "Prometheus",
+    "Grafana",
+  ],
 
-    // Testing
-    { name: "Playwright", level: 60, category: "testing" },
-    { name: "Selenium", level: 60, category: "testing" },
-    { name: "End-to-End Testing", level: 65, category: "testing" },
-];
+  testing: [
+    "Playwright",
+    "Selenium",
+    "End-to-End Testing",
+  ],
+};
 
 const categories = [
-    "all",
-    "languages",
-    "frontend",
-    "backend",
-    "databases",
-    "ai",
-    "auth",
-    "tools",
-    "testing",
+  "all",
+  "languages",
+  "frontend",
+  "backend",
+  "databases",
+  "ai",
+  "auth",
+  "tools",
+  "testing",
 ];
 
-const SkillCard = ({ skill, index }) => {
-    const cardRef = useRef(null);
-    const progressRef = useRef(null);
+const categoryIcons = {
+  languages: "💻",
+  frontend: "🎨",
+  backend: "⚙️",
+  databases: "🗄️",
+  ai: "🤖",
+  auth: "🔐",
+  tools: "🛠️",
+  testing: "🧪",
+};
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting && progressRef.current) {
-                    progressRef.current.style.width = skill.level + "%";
-                }
-            },
-            { threshold: 0.1 }
-        );
+const SkillCategoryCard = ({ title, skills }) => {
+  return (
+    <div
+      className="
+        bg-card
+        border
+        border-border
+        rounded-2xl
+        p-6
+        hover:border-primary/50
+        transition-all
+        duration-300
+        hover:-translate-y-1
+        hover:shadow-lg
+      "
+    >
+      <div className="flex items-center gap-3 mb-6">
+        <span className="text-2xl">
+          {categoryIcons[title]}
+        </span>
 
-        if (cardRef.current) {
-            observer.observe(cardRef.current);
-        }
+        <h3 className="text-xl font-bold capitalize">
+          {title}
+        </h3>
+      </div>
 
-        return () => observer.disconnect();
-    }, [skill.level]);
-
-    return (
-        <div
-            ref={cardRef}
-            className='bg-card p-6 rounded-lg shadow-sm border border-border card-hover hover:border-primary/50 transition-all'
-            style={{
-                animation: `fade-in-up 0.6s ease-out forwards`,
-                animationDelay: `${index * 0.05}s`,
-                opacity: 0
-            }}
-        >
-            <div className='text-left mb-3 flex justify-between items-center'>
-                <h3 className='font-bold text-lg'>{skill.name}</h3>
-                <span className='text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full'>{skill.level}%</span>
-            </div>
-            <div className='w-full bg-secondary/50 h-3 rounded-full overflow-hidden'>
-                <div
-                    ref={progressRef}
-                    className='bg-gradient-to-r from-primary to-primary/70 h-3 rounded-full origin-left transition-all duration-1000 ease-out'
-                    style={{ width: '0%' }}
-                />
-            </div>
-        </div>
-    );
+      <div className="flex flex-wrap gap-3">
+        {skills.map((skill) => (
+          <span
+            key={skill}
+            className="
+              px-4
+              py-2
+              rounded-full
+              bg-primary/10
+              text-primary
+              border
+              border-primary/20
+              text-sm
+              font-medium
+              transition-all
+              duration-300
+              hover:bg-primary
+              hover:text-primary-foreground
+            "
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 const SkillsSection = () => {
-    const [activeCategory, setActiveCategory] = React.useState("all");
+  const [activeCategory, setActiveCategory] = useState("all");
 
-    const filteredSkills = skills.filter((skill) =>
-        activeCategory === "all" || skill.category === activeCategory
-    );
+  const displayedGroups =
+    activeCategory === "all"
+      ? Object.entries(skillGroups)
+      : [[activeCategory, skillGroups[activeCategory]]];
 
-    return (
-        <section id='skills'
-            className='py-32 px-4 relative bg-secondary/20'
-        >
-            <div
-                className='container mx-auto max-w-6xl'
+  return (
+    <section
+      id="skills"
+      className="py-32 px-4 bg-secondary/20"
+    >
+      <div className="container mx-auto max-w-6xl">
+        {/* Heading */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl md:text-6xl font-bold mb-4">
+            My{" "}
+            <span className="text-primary">
+              Skills
+            </span>
+          </h2>
+
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Technologies and tools I use to build
+            scalable web, mobile, backend, and AI
+            powered applications.
+          </p>
+        </div>
+
+        {/* Filters */}
+        <div className="flex flex-wrap justify-center gap-3 mb-16">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() =>
+                setActiveCategory(category)
+              }
+              className={cn(
+                "px-5 py-2.5 rounded-full font-medium capitalize transition-all duration-300",
+                activeCategory === category
+                  ? "bg-primary text-primary-foreground shadow-glow scale-105"
+                  : "bg-secondary text-foreground hover:bg-secondary/80 hover:scale-105"
+              )}
             >
-                <h2
-                    className='text-5xl md:text-6xl font-bold mb-16 text-center'
-                >My {" "}
-                    <span
-                        className='text-primary'
-                    >Skills</span>
-                </h2>
-                <div
-                    className='flex flex-wrap justify-center gap-3 mb-16'
-                >
-                    {categories.map((category, key) => (
-                        <button
-                            key={key}
-                            onClick={() => setActiveCategory(category)}
-                            className={cn('px-6 py-3 rounded-full transition-all duration-300 capitalize font-medium text-sm sm:text-base',
-                                activeCategory === category ? 'bg-primary text-primary-foreground shadow-glow scale-105' : 'bg-secondary/70 text-foreground hover:bg-secondary hover:scale-105')} >
+              {category}
+            </button>
+          ))}
+        </div>
 
-                            <span>{category}</span>
-                        </button>))}
-                </div>
-                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 '>
-                    {filteredSkills.map((skill, key) => (
-                        <SkillCard key={key} skill={skill} index={key} />
-                    ))}
-                </div>
-            </div>
-        </section>
-
-    )
+        {/* Skills Grid */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {displayedGroups.map(([category, skills]) => (
+            <SkillCategoryCard
+              key={category}
+              title={category}
+              skills={skills}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
-export default SkillsSection
+export default SkillsSection;
