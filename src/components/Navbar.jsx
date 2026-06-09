@@ -2,7 +2,7 @@ import React from 'react'
 import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
 
-const navItems=[{name:"Home",href:"#hero"},{name:"About",href:"#about"},{name:"Skills",href:"#Skills"},{name:"Projects",href:"#projects"},
+const navItems=[{name:"Home",href:"#hero"},{name:"About",href:"#about"},{name:"Skills",href:"#skills"},{name:"Projects",href:"#projects"},
 {name:"Contact",href:"#contact"}]
 
 const Navbar = () => {
@@ -48,7 +48,7 @@ const Navbar = () => {
         
         
         
-        <button className='md:hidden z-50 text-foreground p-2'
+        <button className='md:hidden z-[60] text-foreground p-2'
         aria-label={isMenuOpen? "Close Menu":"Open Menu" }
         onClick={()=>{setIsMenuOpen((prev)=>!prev)}}>
             {isMenuOpen? <X size={24}/> : <Menu size={24}/> }
@@ -56,9 +56,16 @@ const Navbar = () => {
         </button>
         
 
-        <div className={cn("fixed inset-0 bg-background/70 backdrop-blur-md flex flex-col items-center justify-center ","transition-all duration-300 md:hidden",
-            isMenuOpen? "opacity-100 pointer-events-auto":"opacity-0 pointer-events-none",
-        )}>
+        <div
+            className={cn(
+                "fixed inset-0 z-50 bg-background/95 backdrop-blur-md flex flex-col items-center justify-center",
+                "transition-all duration-300 md:hidden",
+                isMenuOpen
+                ? "opacity-100 pointer-events-auto "
+                : "opacity-0 pointer-events-none",
+                isScrolled? "py-50":"py-5"
+            )}
+            >
         <div className='flex flex-col space-y-8 text-xl '>
             {navItems.map((item,key)=>(
                 <a key={key} className='text-foreground/80 hover:text-primary transition-colors duration-300'
